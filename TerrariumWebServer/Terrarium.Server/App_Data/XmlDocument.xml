@@ -1,0 +1,793 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Terrarium.Server</name>
+    </assembly>
+    <members>
+        <member name="M:Terrarium.Server.Areas.HelpPage.ApiDescriptionExtensions.GetFriendlyId(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Generates an URI-friendly ID for the <see cref="T:System.Web.Http.Description.ApiDescription"/>. E.g. "Get-Values-id_name" instead of "GetValues/{id}?name={name}"
+            </summary>
+            <param name="description">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The ID as a string.</returns>
+        </member>
+        <member name="T:Terrarium.Server.Areas.HelpPage.HelpPageConfig">
+            <summary>
+            Use this class to customize the Help Page.
+            For example you can set a custom <see cref="T:System.Web.Http.Description.IDocumentationProvider"/> to supply the documentation
+            or you can provide the samples for the requests/responses.
+            </summary>
+        </member>
+        <member name="T:Terrarium.Server.Areas.HelpPage.Controllers.HelpController">
+            <summary>
+            The controller that will handle requests for the help page.
+            </summary>
+        </member>
+        <member name="M:Terrarium.Server.Areas.HelpPage.HelpPageConfigurationExtensions.SetDocumentationProvider(System.Web.Http.HttpConfiguration,System.Web.Http.Description.IDocumentationProvider)">
+            <summary>
+            Sets the documentation provider for help page.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="documentationProvider">The documentation provider.</param>
+        </member>
+        <member name="M:Terrarium.Server.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleObjects(System.Web.Http.HttpConfiguration,System.Collections.Generic.IDictionary{System.Type,System.Object})">
+            <summary>
+            Sets the objects that will be used by the formatters to produce sample requests/responses.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sampleObjects">The sample objects.</param>
+        </member>
+        <member name="M:Terrarium.Server.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleRequest(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String)">
+            <summary>
+            Sets the sample request directly for the specified media type and action.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample request.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:Terrarium.Server.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleRequest(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String,System.String[])">
+            <summary>
+            Sets the sample request directly for the specified media type and action with parameters.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample request.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:Terrarium.Server.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleResponse(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String)">
+            <summary>
+            Sets the sample request directly for the specified media type of the action.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample response.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:Terrarium.Server.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleResponse(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String,System.String[])">
+            <summary>
+            Sets the sample response directly for the specified media type of the action with specific parameters.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample response.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:Terrarium.Server.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleForMediaType(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue)">
+            <summary>
+            Sets the sample directly for all actions with the specified media type.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample.</param>
+            <param name="mediaType">The media type.</param>
+        </member>
+        <member name="M:Terrarium.Server.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleForType(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.Type)">
+            <summary>
+            Sets the sample directly for all actions with the specified type and media type.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="type">The parameter type or return type of an action.</param>
+        </member>
+        <member name="M:Terrarium.Server.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualRequestType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String)">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> passed to the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            The help page will use this information to produce more accurate request samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:Terrarium.Server.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualRequestType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String,System.String[])">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> passed to the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            The help page will use this information to produce more accurate request samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:Terrarium.Server.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualResponseType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String)">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> returned as part of the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            The help page will use this information to produce more accurate response samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:Terrarium.Server.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualResponseType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String,System.String[])">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> returned as part of the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            The help page will use this information to produce more accurate response samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:Terrarium.Server.Areas.HelpPage.HelpPageConfigurationExtensions.GetHelpPageSampleGenerator(System.Web.Http.HttpConfiguration)">
+            <summary>
+            Gets the help page sample generator.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <returns>The help page sample generator.</returns>
+        </member>
+        <member name="M:Terrarium.Server.Areas.HelpPage.HelpPageConfigurationExtensions.SetHelpPageSampleGenerator(System.Web.Http.HttpConfiguration,Terrarium.Server.Areas.HelpPage.HelpPageSampleGenerator)">
+            <summary>
+            Sets the help page sample generator.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sampleGenerator">The help page sample generator.</param>
+        </member>
+        <member name="M:Terrarium.Server.Areas.HelpPage.HelpPageConfigurationExtensions.GetModelDescriptionGenerator(System.Web.Http.HttpConfiguration)">
+            <summary>
+            Gets the model description generator.
+            </summary>
+            <param name="config">The configuration.</param>
+            <returns>The <see cref="T:Terrarium.Server.Areas.HelpPage.ModelDescriptions.ModelDescriptionGenerator"/></returns>
+        </member>
+        <member name="M:Terrarium.Server.Areas.HelpPage.HelpPageConfigurationExtensions.GetHelpPageApiModel(System.Web.Http.HttpConfiguration,System.String)">
+            <summary>
+            Gets the model that represents an API displayed on the help page. The model is initialized on the first call and cached for subsequent calls.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="apiDescriptionId">The <see cref="T:System.Web.Http.Description.ApiDescription"/> ID.</param>
+            <returns>
+            An <see cref="T:Terrarium.Server.Areas.HelpPage.Models.HelpPageApiModel"/>
+            </returns>
+        </member>
+        <member name="T:Terrarium.Server.Areas.HelpPage.ModelDescriptions.ModelDescription">
+            <summary>
+            Describes a type model.
+            </summary>
+        </member>
+        <member name="T:Terrarium.Server.Areas.HelpPage.ModelDescriptions.ModelDescriptionGenerator">
+            <summary>
+            Generates model descriptions for given types.
+            </summary>
+        </member>
+        <member name="T:Terrarium.Server.Areas.HelpPage.ModelDescriptions.ModelNameAttribute">
+            <summary>
+            Use this attribute to change the name of the <see cref="T:Terrarium.Server.Areas.HelpPage.ModelDescriptions.ModelDescription"/> generated for a type.
+            </summary>
+        </member>
+        <member name="T:Terrarium.Server.Areas.HelpPage.Models.HelpPageApiModel">
+            <summary>
+            The model that represents an API displayed on the help page.
+            </summary>
+        </member>
+        <member name="M:Terrarium.Server.Areas.HelpPage.Models.HelpPageApiModel.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Terrarium.Server.Areas.HelpPage.Models.HelpPageApiModel"/> class.
+            </summary>
+        </member>
+        <member name="P:Terrarium.Server.Areas.HelpPage.Models.HelpPageApiModel.ApiDescription">
+            <summary>
+            Gets or sets the <see cref="P:Terrarium.Server.Areas.HelpPage.Models.HelpPageApiModel.ApiDescription"/> that describes the API.
+            </summary>
+        </member>
+        <member name="P:Terrarium.Server.Areas.HelpPage.Models.HelpPageApiModel.UriParameters">
+            <summary>
+            Gets or sets the <see cref="T:Terrarium.Server.Areas.HelpPage.ModelDescriptions.ParameterDescription"/> collection that describes the URI parameters for the API.
+            </summary>
+        </member>
+        <member name="P:Terrarium.Server.Areas.HelpPage.Models.HelpPageApiModel.RequestDocumentation">
+            <summary>
+            Gets or sets the documentation for the request.
+            </summary>
+        </member>
+        <member name="P:Terrarium.Server.Areas.HelpPage.Models.HelpPageApiModel.RequestModelDescription">
+            <summary>
+            Gets or sets the <see cref="T:Terrarium.Server.Areas.HelpPage.ModelDescriptions.ModelDescription"/> that describes the request body.
+            </summary>
+        </member>
+        <member name="P:Terrarium.Server.Areas.HelpPage.Models.HelpPageApiModel.RequestBodyParameters">
+            <summary>
+            Gets the request body parameter descriptions.
+            </summary>
+        </member>
+        <member name="P:Terrarium.Server.Areas.HelpPage.Models.HelpPageApiModel.ResourceDescription">
+            <summary>
+            Gets or sets the <see cref="T:Terrarium.Server.Areas.HelpPage.ModelDescriptions.ModelDescription"/> that describes the resource.
+            </summary>
+        </member>
+        <member name="P:Terrarium.Server.Areas.HelpPage.Models.HelpPageApiModel.ResourceProperties">
+            <summary>
+            Gets the resource property descriptions.
+            </summary>
+        </member>
+        <member name="P:Terrarium.Server.Areas.HelpPage.Models.HelpPageApiModel.SampleRequests">
+            <summary>
+            Gets the sample requests associated with the API.
+            </summary>
+        </member>
+        <member name="P:Terrarium.Server.Areas.HelpPage.Models.HelpPageApiModel.SampleResponses">
+            <summary>
+            Gets the sample responses associated with the API.
+            </summary>
+        </member>
+        <member name="P:Terrarium.Server.Areas.HelpPage.Models.HelpPageApiModel.ErrorMessages">
+            <summary>
+            Gets the error messages associated with this model.
+            </summary>
+        </member>
+        <member name="T:Terrarium.Server.Areas.HelpPage.HelpPageSampleGenerator">
+            <summary>
+            This class will generate the samples for the help page.
+            </summary>
+        </member>
+        <member name="M:Terrarium.Server.Areas.HelpPage.HelpPageSampleGenerator.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Terrarium.Server.Areas.HelpPage.HelpPageSampleGenerator"/> class.
+            </summary>
+        </member>
+        <member name="P:Terrarium.Server.Areas.HelpPage.HelpPageSampleGenerator.ActualHttpMessageTypes">
+            <summary>
+            Gets CLR types that are used as the content of <see cref="T:System.Net.Http.HttpRequestMessage"/> or <see cref="T:System.Net.Http.HttpResponseMessage"/>.
+            </summary>
+        </member>
+        <member name="P:Terrarium.Server.Areas.HelpPage.HelpPageSampleGenerator.ActionSamples">
+            <summary>
+            Gets the objects that are used directly as samples for certain actions.
+            </summary>
+        </member>
+        <member name="P:Terrarium.Server.Areas.HelpPage.HelpPageSampleGenerator.SampleObjects">
+            <summary>
+            Gets the objects that are serialized as samples by the supported formatters.
+            </summary>
+        </member>
+        <member name="P:Terrarium.Server.Areas.HelpPage.HelpPageSampleGenerator.SampleObjectFactories">
+            <summary>
+            Gets factories for the objects that the supported formatters will serialize as samples. Processed in order,
+            stopping when the factory successfully returns a non-<see langref="null"/> object.
+            </summary>
+            <remarks>
+            Collection includes just <see cref="M:Terrarium.Server.Areas.HelpPage.ObjectGenerator.GenerateObject(System.Type)"/> initially. Use
+            <code>SampleObjectFactories.Insert(0, func)</code> to provide an override and
+            <code>SampleObjectFactories.Add(func)</code> to provide a fallback.</remarks>
+        </member>
+        <member name="M:Terrarium.Server.Areas.HelpPage.HelpPageSampleGenerator.GetSampleRequests(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Gets the request body samples for a given <see cref="T:System.Web.Http.Description.ApiDescription"/>.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The samples keyed by media type.</returns>
+        </member>
+        <member name="M:Terrarium.Server.Areas.HelpPage.HelpPageSampleGenerator.GetSampleResponses(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Gets the response body samples for a given <see cref="T:System.Web.Http.Description.ApiDescription"/>.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The samples keyed by media type.</returns>
+        </member>
+        <member name="M:Terrarium.Server.Areas.HelpPage.HelpPageSampleGenerator.GetSample(System.Web.Http.Description.ApiDescription,Terrarium.Server.Areas.HelpPage.SampleDirection)">
+            <summary>
+            Gets the request or response body samples.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <param name="sampleDirection">The value indicating whether the sample is for a request or for a response.</param>
+            <returns>The samples keyed by media type.</returns>
+        </member>
+        <member name="M:Terrarium.Server.Areas.HelpPage.HelpPageSampleGenerator.GetActionSample(System.String,System.String,System.Collections.Generic.IEnumerable{System.String},System.Type,System.Net.Http.Formatting.MediaTypeFormatter,System.Net.Http.Headers.MediaTypeHeaderValue,Terrarium.Server.Areas.HelpPage.SampleDirection)">
+            <summary>
+            Search for samples that are provided directly through <see cref="P:Terrarium.Server.Areas.HelpPage.HelpPageSampleGenerator.ActionSamples"/>.
+            </summary>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+            <param name="type">The CLR type.</param>
+            <param name="formatter">The formatter.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="sampleDirection">The value indicating whether the sample is for a request or for a response.</param>
+            <returns>The sample that matches the parameters.</returns>
+        </member>
+        <member name="M:Terrarium.Server.Areas.HelpPage.HelpPageSampleGenerator.GetSampleObject(System.Type)">
+            <summary>
+            Gets the sample object that will be serialized by the formatters. 
+            First, it will look at the <see cref="P:Terrarium.Server.Areas.HelpPage.HelpPageSampleGenerator.SampleObjects"/>. If no sample object is found, it will try to create
+            one using <see cref="M:Terrarium.Server.Areas.HelpPage.HelpPageSampleGenerator.DefaultSampleObjectFactory(Terrarium.Server.Areas.HelpPage.HelpPageSampleGenerator,System.Type)"/> (which wraps an <see cref="T:Terrarium.Server.Areas.HelpPage.ObjectGenerator"/>) and other
+            factories in <see cref="P:Terrarium.Server.Areas.HelpPage.HelpPageSampleGenerator.SampleObjectFactories"/>.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>The sample object.</returns>
+        </member>
+        <member name="M:Terrarium.Server.Areas.HelpPage.HelpPageSampleGenerator.ResolveHttpRequestMessageType(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Resolves the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> passed to the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The type.</returns>
+        </member>
+        <member name="M:Terrarium.Server.Areas.HelpPage.HelpPageSampleGenerator.ResolveType(System.Web.Http.Description.ApiDescription,System.String,System.String,System.Collections.Generic.IEnumerable{System.String},Terrarium.Server.Areas.HelpPage.SampleDirection,System.Collections.ObjectModel.Collection{System.Net.Http.Formatting.MediaTypeFormatter}@)">
+            <summary>
+            Resolves the type of the action parameter or return value when <see cref="T:System.Net.Http.HttpRequestMessage"/> or <see cref="T:System.Net.Http.HttpResponseMessage"/> is used.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+            <param name="sampleDirection">The value indicating whether the sample is for a request or a response.</param>
+            <param name="formatters">The formatters.</param>
+        </member>
+        <member name="M:Terrarium.Server.Areas.HelpPage.HelpPageSampleGenerator.WriteSampleObjectUsingFormatter(System.Net.Http.Formatting.MediaTypeFormatter,System.Object,System.Type,System.Net.Http.Headers.MediaTypeHeaderValue)">
+            <summary>
+            Writes the sample object using formatter.
+            </summary>
+            <param name="formatter">The formatter.</param>
+            <param name="value">The value.</param>
+            <param name="type">The type.</param>
+            <param name="mediaType">Type of the media.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Terrarium.Server.Areas.HelpPage.HelpPageSampleKey">
+            <summary>
+            This is used to identify the place where the sample should be applied.
+            </summary>
+        </member>
+        <member name="M:Terrarium.Server.Areas.HelpPage.HelpPageSampleKey.#ctor(System.Net.Http.Headers.MediaTypeHeaderValue)">
+            <summary>
+            Creates a new <see cref="T:Terrarium.Server.Areas.HelpPage.HelpPageSampleKey"/> based on media type.
+            </summary>
+            <param name="mediaType">The media type.</param>
+        </member>
+        <member name="M:Terrarium.Server.Areas.HelpPage.HelpPageSampleKey.#ctor(System.Net.Http.Headers.MediaTypeHeaderValue,System.Type)">
+            <summary>
+            Creates a new <see cref="T:Terrarium.Server.Areas.HelpPage.HelpPageSampleKey"/> based on media type and CLR type.
+            </summary>
+            <param name="mediaType">The media type.</param>
+            <param name="type">The CLR type.</param>
+        </member>
+        <member name="M:Terrarium.Server.Areas.HelpPage.HelpPageSampleKey.#ctor(Terrarium.Server.Areas.HelpPage.SampleDirection,System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Creates a new <see cref="T:Terrarium.Server.Areas.HelpPage.HelpPageSampleKey"/> based on <see cref="P:Terrarium.Server.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>, controller name, action name and parameter names.
+            </summary>
+            <param name="sampleDirection">The <see cref="P:Terrarium.Server.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:Terrarium.Server.Areas.HelpPage.HelpPageSampleKey.#ctor(System.Net.Http.Headers.MediaTypeHeaderValue,Terrarium.Server.Areas.HelpPage.SampleDirection,System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Creates a new <see cref="T:Terrarium.Server.Areas.HelpPage.HelpPageSampleKey"/> based on media type, <see cref="P:Terrarium.Server.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>, controller name, action name and parameter names.
+            </summary>
+            <param name="mediaType">The media type.</param>
+            <param name="sampleDirection">The <see cref="P:Terrarium.Server.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="P:Terrarium.Server.Areas.HelpPage.HelpPageSampleKey.ControllerName">
+            <summary>
+            Gets the name of the controller.
+            </summary>
+            <value>
+            The name of the controller.
+            </value>
+        </member>
+        <member name="P:Terrarium.Server.Areas.HelpPage.HelpPageSampleKey.ActionName">
+            <summary>
+            Gets the name of the action.
+            </summary>
+            <value>
+            The name of the action.
+            </value>
+        </member>
+        <member name="P:Terrarium.Server.Areas.HelpPage.HelpPageSampleKey.MediaType">
+            <summary>
+            Gets the media type.
+            </summary>
+            <value>
+            The media type.
+            </value>
+        </member>
+        <member name="P:Terrarium.Server.Areas.HelpPage.HelpPageSampleKey.ParameterNames">
+            <summary>
+            Gets the parameter names.
+            </summary>
+        </member>
+        <member name="P:Terrarium.Server.Areas.HelpPage.HelpPageSampleKey.SampleDirection">
+            <summary>
+            Gets the <see cref="P:Terrarium.Server.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.
+            </summary>
+        </member>
+        <member name="T:Terrarium.Server.Areas.HelpPage.ImageSample">
+            <summary>
+            This represents an image sample on the help page. There's a display template named ImageSample associated with this class.
+            </summary>
+        </member>
+        <member name="M:Terrarium.Server.Areas.HelpPage.ImageSample.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Terrarium.Server.Areas.HelpPage.ImageSample"/> class.
+            </summary>
+            <param name="src">The URL of an image.</param>
+        </member>
+        <member name="T:Terrarium.Server.Areas.HelpPage.InvalidSample">
+            <summary>
+            This represents an invalid sample on the help page. There's a display template named InvalidSample associated with this class.
+            </summary>
+        </member>
+        <member name="T:Terrarium.Server.Areas.HelpPage.ObjectGenerator">
+            <summary>
+            This class will create an object of a given type and populate it with sample data.
+            </summary>
+        </member>
+        <member name="M:Terrarium.Server.Areas.HelpPage.ObjectGenerator.GenerateObject(System.Type)">
+            <summary>
+            Generates an object for a given type. The type needs to be public, have a public default constructor and settable public properties/fields. Currently it supports the following types:
+            Simple types: <see cref="T:System.Int32"/>, <see cref="T:System.String"/>, <see cref="T:System.Enum"/>, <see cref="T:System.DateTime"/>, <see cref="T:System.Uri"/>, etc.
+            Complex types: POCO types.
+            Nullables: <see cref="T:System.Nullable`1"/>.
+            Arrays: arrays of simple types or complex types.
+            Key value pairs: <see cref="T:System.Collections.Generic.KeyValuePair`2"/>
+            Tuples: <see cref="T:System.Tuple`1"/>, <see cref="T:System.Tuple`2"/>, etc
+            Dictionaries: <see cref="T:System.Collections.Generic.IDictionary`2"/> or anything deriving from <see cref="T:System.Collections.Generic.IDictionary`2"/>.
+            Collections: <see cref="T:System.Collections.Generic.IList`1"/>, <see cref="T:System.Collections.Generic.IEnumerable`1"/>, <see cref="T:System.Collections.Generic.ICollection`1"/>, <see cref="T:System.Collections.IList"/>, <see cref="T:System.Collections.IEnumerable"/>, <see cref="T:System.Collections.ICollection"/> or anything deriving from <see cref="T:System.Collections.Generic.ICollection`1"/> or <see cref="T:System.Collections.IList"/>.
+            Queryables: <see cref="T:System.Linq.IQueryable"/>, <see cref="T:System.Linq.IQueryable`1"/>.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>An object of the given type.</returns>
+        </member>
+        <member name="T:Terrarium.Server.Areas.HelpPage.SampleDirection">
+            <summary>
+            Indicates whether the sample is used for request or response
+            </summary>
+        </member>
+        <member name="T:Terrarium.Server.Areas.HelpPage.TextSample">
+            <summary>
+            This represents a preformatted text sample on the help page. There's a display template named TextSample associated with this class.
+            </summary>
+        </member>
+        <member name="T:Terrarium.Server.Areas.HelpPage.XmlDocumentationProvider">
+            <summary>
+            A custom <see cref="T:System.Web.Http.Description.IDocumentationProvider"/> that reads the API documentation from an XML documentation file.
+            </summary>
+        </member>
+        <member name="M:Terrarium.Server.Areas.HelpPage.XmlDocumentationProvider.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Terrarium.Server.Areas.HelpPage.XmlDocumentationProvider"/> class.
+            </summary>
+            <param name="documentPath">The physical path to XML document.</param>
+        </member>
+        <member name="T:Terrarium.Server.Controllers.ChartController">
+            <summary>
+            The chart service is capable of providing remote clients
+            with charting data by calling on the local charting components to
+            generate the chart and then returning any required information to the
+            remote client to display the chart.  This service is also capable of
+            returning all the data required to produce a remote interface to
+            graph generation and the information required to generate top-n reports.
+            </summary>
+        </member>
+        <member name="M:Terrarium.Server.Controllers.ChartController.Species">
+            <summary>
+            Returns a graph of ALL species along with their latest
+            point of population data.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Terrarium.Server.Controllers.ChartController.GrabLatestSpeciesData(System.String)">
+            <summary>
+            Returns the latest datapoint of statistics information
+            for a given species in the form of a dataset.
+            </summary>
+            <param name="species"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Terrarium.Server.Controllers.ChartController.GetTopAnimals(System.String,Terrarium.Server.Models.OrganismType,System.Int32)">
+            <summary>
+            Returns various information about the top-num animals
+            of a given organism type for use in top-n reporting.
+            </summary>
+            <param name="version"></param>
+            <param name="tat"></param>
+            <param name="num"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Terrarium.Server.Controllers.MessageController">
+            <summary>
+            Returns various informational messages from the server
+            </summary>
+        </member>
+        <member name="M:Terrarium.Server.Controllers.MessageController.Welcome">
+            <summary>
+            Gets the welcome message for the server.
+            </summary>
+            <returns>The welcome message as stored in the web.config file or a stock one if we can't read it.</returns>
+        </member>
+        <member name="M:Terrarium.Server.Controllers.MessageController.Daily">
+            <summary>
+            Gets the message of the day from the server.
+            </summary>
+            <returns>The message of the day as stored in the web.config file or a stock one if we can't read it.</returns>
+        </member>
+        <member name="M:Terrarium.Server.Controllers.MessageController.Version">
+            <summary>
+            Gets the latest version of the Terrarium SDK this server is using.
+            </summary>
+            <returns>The latest version as stored in the web.config file or a stock one if we can't read it.</returns>
+        </member>
+        <member name="T:Terrarium.Server.Controllers.PeerDiscoveryController">
+            <summary>
+            The Peer Discovery Service is the central location where
+            peers can announce their existence and get information about other
+            peers.  The primary services here are registering a user's email address,
+            getting peer counts and lists, and registering a peer.
+            </summary>
+        </member>
+        <member name="M:Terrarium.Server.Controllers.PeerDiscoveryController.RegisterUser(System.String)">
+            <summary>
+            Registers a Terrarium client user into the server database.
+            </summary>
+            <param name="email">E-mail address of the Terrarium user</param>
+            <returns>Boolean indicating success or failure of the user registration.</returns>
+        </member>
+        <member name="M:Terrarium.Server.Controllers.PeerDiscoveryController.GetNumPeers(System.String,System.String)">
+            <summary>
+            Obtains the number of peers currently connected to the Terrarium Server.
+            </summary>
+            <param name="version">String specifying the version number.</param>
+            <param name="channel">String specifying the channel number.</param>
+            <returns>Integer count of the number of peers for the specified version and channel number.</returns>
+        </member>
+        <member name="M:Terrarium.Server.Controllers.PeerDiscoveryController.ValidatePeer">
+            <summary>
+            Validates a peer connection.
+            </summary>
+            <returns>A string representing the "REMOTE_ADDR" attribute from the Web Application ServerVariables collection.</returns>
+        </member>
+        <member name="M:Terrarium.Server.Controllers.PeerDiscoveryController.IsVersionDisabled(System.String)">
+            <summary>
+            Checks to see if a specific version is disabled or not.  Used by the client at start up.
+            This allows an admin to totally shutdown a version.
+            </summary>
+            <param name="version">String specifying the version number.</param>
+            <returns>A PeerVersionResult object containing the results of the query</returns>
+        </member>
+        <member name="M:Terrarium.Server.Controllers.PeerDiscoveryController.RegisterMyPeerGetCountAndPeerList(System.String,System.String,System.Guid)">
+            <summary>
+            Registers a peer connection with the Terrarium Server.
+            </summary>
+            <param name="version">String specifying the version number.</param>
+            <param name="channel">String specifying the channel number.</param>
+            <param name="guid">Guid (Globally Unique Identifier) for the peer connection.</param>
+            <returns>A PeerRegisterResult object containing the registration result</returns>
+        </member>
+        <member name="T:Terrarium.Server.Controllers.ReportsController">
+            <summary>
+            This class implements the reporting web service for the Terrarium Server.
+            This web service takes reporting data from clients and inserts
+            the data into a special history table.This data is later rolled up 
+            by the NonPageServices class and turned into data points.
+            These data points are used used when creating graphs of the server activity, 
+            species populations, etc.
+            </summary>
+        </member>
+        <member name="M:Terrarium.Server.Controllers.ReportsController.Population(System.Object,System.Guid,System.Int32)">
+            <summary>
+            This method takes a dataset from the client along with
+            a game state guid and the tick this data represents as its parameter. It uses this
+            information to make insertions into the History table in the Terrarium Server database.
+            </summary>
+            <remarks>
+            This function is capable of throttling users and throwing away their
+            data to prevent cheating or DOS attacks.
+            
+            This function is also capable of detecting corrupted or out of date
+            clients and alerting them as to such.  It can also detect if the client
+            is reporting information on blacklisted creatures and notify the peer
+            of that special case.
+            
+            There is also some code used to draw constraints on the data reported
+            by a client.  In some cases a hacked client could report extremely high
+            and bogus numbers.  This function will throw out any data that is heavily
+            out of bounds to help prevent cheating.
+            </remarks>
+            <param name="data">A Dataset containing species population data.</param>
+            <param name="guid">Guid associated with a peer connection.</param>
+            <param name="currentTick">Integer representing the current tick (time increment).</param>
+            <returns>A possible value from the ReturnCode enumeration.</returns>
+        </member>
+        <member name="T:Terrarium.Server.Controllers.SpeciesController">
+            <summary>
+            Encapsulates the functions required to insert new creatures into the
+            ecosystem and get creatures from the server during a reintroduction.
+            </summary>
+        </member>
+        <member name="M:Terrarium.Server.Controllers.SpeciesController.GetBlacklistedSpecies">
+            <summary>
+            Gets a list of all species that have been blacklisted.
+            </summary>
+            <returns>The list of blacklisted species.</returns>
+        </member>
+        <member name="M:Terrarium.Server.Controllers.SpeciesController.GetExtinctSpecies(System.String,System.String)">
+            <summary>
+            Returns a dataset of all species whose population has reached 0 and therefore can be reintroduced.
+            </summary>
+            <param name="version">The specific version of the species to get.</param>
+            <param name="filter">The name of the species to filter or "All" for all available creatures.</param>
+            <returns>A collection of creatures that meets the version and filter criteria</returns>
+        </member>
+        <member name="M:Terrarium.Server.Controllers.SpeciesController.GetAllSpecies(System.String,System.String)">
+            <summary>
+            Returns a dataset of all species given a specific version and filter criterion.
+            </summary>
+            <param name="version">The specific version of the species to get.</param>
+            <param name="filter">The name of the species to filter or "All" for all available creatures.</param>
+            <returns>A collection of creatures that meets the version and filter criteria</returns>
+        </member>
+        <member name="M:Terrarium.Server.Controllers.SpeciesController.GetSpeciesAssembly(System.String,System.String)">
+            <summary>
+            Gets the assembly as a byte array for the species with a given name and version number.
+            </summary>
+            <param name="name">The name of the species to get</param>
+            <param name="version">The version of the species to get</param>
+            <returns>A byte array of the .NET assembly matching the criterion</returns>
+        </member>
+        <member name="M:Terrarium.Server.Controllers.SpeciesController.ReintroduceSpecies(System.String,System.String,System.Guid)">
+            <summary>
+            Introduces a previously extinct creature back into the EcoSystem and marks it as not extinct.
+            </summary>
+            <param name="name">The name of the species to reintroduce</param>
+            <param name="version">The version of the species to reintroduce</param>
+            <param name="peerGuid"></param>
+            <returns>A byte array of the .NET assembly matching the criterion</returns>
+        </member>
+        <member name="M:Terrarium.Server.Controllers.SpeciesController.Add(System.String,System.String,System.String,System.String,System.String,System.String,System.Byte[])">
+            <summary>
+             This function takes a creature assembly, author information,
+             and a species name and attempts to insert the creature into the EcoSystem.
+             This involves adding the creature to the database and saving the assembly
+             on the server so it can later be used for reintroductions.
+             All strings are checked for inflammatory words and the insertion is not
+             performed if any are found.  In addition the 5 minute rule is checked to
+             make sure the user isn't spamming the server.  Only 1 upload is allowed
+             per 5 minutes.  An additional constraint of only 30 uploads per day is
+             also enforced through the 24 hour rule. 
+             
+             The creature is then inserted into the database.  If the creature already
+             exists the function tells the client the creature is preexisting and the
+             insert fails.  If the insert is successful the creature is then saved to disk on the server.
+            </summary>
+            <param name="name"></param>
+            <param name="version"></param>
+            <param name="type"></param>
+            <param name="author"></param>
+            <param name="email"></param>
+            <param name="assemblyFullName"></param>
+            <param name="assemblyCode"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Terrarium.Server.Controllers.UsageController">
+            <summary>
+            Reports on usage of the system.
+            </summary>
+        </member>
+        <member name="M:Terrarium.Server.Controllers.UsageController.ReportUsage(Terrarium.Server.Models.Usage)">
+            <summary>
+            <para>
+            Allows a client to report its own usage statistics and adds it to the system.
+            </para>
+            <para>
+            The IPAddress portion of the UsageData object is automatically filled in by the server.
+            </para>
+            <para>
+            Usage reporting is only allowed once every 60 minutes from a client.</para>
+            </summary>
+            <param name="data">UsageData from the client about the current state of their Terrarium.</param>
+        </member>
+        <member name="T:Terrarium.Server.Controllers.WatsonController">
+            <summary>
+            Enables logging of errors from Terrarium clients.
+            </summary>
+        </member>
+        <member name="M:Terrarium.Server.Controllers.WatsonController.ReportError(Terrarium.Server.Models.Watson)">
+            <summary>
+            <para>
+            Takes an object from a client and inserts a record into the database.
+            </para>
+            <para>
+            This is used by the Terrarium Client to submit application information in
+            case a crash happens and is done automatically.
+            </para>
+            <para>
+            The Id, MachineName, and DateSubmitted part of the Watson object are ignored
+            and automatically filled in by the server.
+            </para>
+            </summary>
+            <param name="data">Watson data object containing error information from the client application.</param>
+        </member>
+        <member name="T:Terrarium.Server.Infrastructure.RequestHelpers">
+            <summary>
+            Helper class to handle HttpRequests
+            </summary>
+        </member>
+        <member name="M:Terrarium.Server.Infrastructure.RequestHelpers.GetClientIpAddress(System.Net.Http.HttpRequestMessage)">
+            <summary>
+            Returns the clients IP address. Usable from ApiControllers.
+            </summary>
+            <param name="request"></param>
+            <returns>The IP address from the client machine.</returns>
+        </member>
+        <member name="T:Terrarium.Server.Models.OrganismType">
+            <summary>
+            Used to filter organisms by type when returning
+            top organism information.
+            </summary>
+        </member>
+        <member name="P:Terrarium.Server.Models.PeerVersionResult.Result">
+            <summary>
+            True if the version is enabled, false otherwise
+            </summary>
+        </member>
+        <member name="P:Terrarium.Server.Models.PeerVersionResult.ErrorMessage">
+            <summary>
+            This is an admin message that the client will display if the version is disabled
+            </summary>
+        </member>
+        <member name="T:Terrarium.Server.Models.RegisterPeerResult">
+            <summary>
+            This enum contains the values for different
+            response codes when a client calls RegisterMyPeerGetCountAndPeerList.
+            Success means the call was good. Failure is generally a database
+            timeout or other database issue, whereas a GlobalFailure means we
+            have disabled that version of the client and wish the user to upgrade.
+            </summary>
+        </member>
+        <member name="F:Terrarium.Server.Models.RegisterPeerResult.Success">
+            <summary>
+            Indicates successful registration of a peer connection.
+            </summary>
+        </member>
+        <member name="F:Terrarium.Server.Models.RegisterPeerResult.Failure">
+            <summary>
+            Indicates an unsuccessful attempt to register a peer connection.
+            </summary>
+        </member>
+        <member name="F:Terrarium.Server.Models.RegisterPeerResult.GlobalFailure">
+            <summary>
+            Indicates an unsuccessful attempt to register a peer connection.
+            </summary>
+        </member>
+        <member name="M:Terrarium.Server.Repositories.UsageRepository.GetPeriodDates(Terrarium.Server.Models.UsagePeriod,System.DateTime@,System.DateTime@)">
+            <summary>
+            This is a helper function to give proper dates given the UsagePeriod
+            </summary>
+            <param name="period">The period we care about</param>
+            <param name="startDate">The startDate, to be filled in by this function</param>
+            <param name="endDate">The endDate, to be filled in by this function</param>
+        </member>
+    </members>
+</doc>
