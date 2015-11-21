@@ -518,24 +518,24 @@
         </member>
         <member name="T:Terrarium.Server.Controllers.MessageController">
             <summary>
-            Returns various informational messages from the server
+                Returns various informational messages from the server
             </summary>
         </member>
         <member name="M:Terrarium.Server.Controllers.MessageController.Welcome">
             <summary>
-            Gets the welcome message for the server.
+                Gets the welcome message for the server.
             </summary>
             <returns>The welcome message as stored in the web.config file or a stock one if we can't read it.</returns>
         </member>
         <member name="M:Terrarium.Server.Controllers.MessageController.Daily">
             <summary>
-            Gets the message of the day from the server.
+                Gets the message of the day from the server.
             </summary>
             <returns>The message of the day as stored in the web.config file or a stock one if we can't read it.</returns>
         </member>
         <member name="M:Terrarium.Server.Controllers.MessageController.Version">
             <summary>
-            Gets the latest version of the Terrarium SDK this server is using.
+                Gets the latest version of the Terrarium SDK this server is using.
             </summary>
             <returns>The latest version as stored in the web.config file or a stock one if we can't read it.</returns>
         </member>
@@ -622,19 +622,19 @@
         </member>
         <member name="T:Terrarium.Server.Controllers.SpeciesController">
             <summary>
-            Encapsulates the functions required to insert new creatures into the
-            ecosystem and get creatures from the server during a reintroduction.
+                Encapsulates the functions required to insert new creatures into the
+                ecosystem and get creatures from the server during a reintroduction.
             </summary>
         </member>
         <member name="M:Terrarium.Server.Controllers.SpeciesController.GetBlacklistedSpecies">
             <summary>
-            Gets a list of all species that have been blacklisted.
+                Gets a list of all species that have been blacklisted.
             </summary>
             <returns>The list of blacklisted species.</returns>
         </member>
         <member name="M:Terrarium.Server.Controllers.SpeciesController.GetExtinctSpecies(System.String,System.String)">
             <summary>
-            Returns a dataset of all species whose population has reached 0 and therefore can be reintroduced.
+                Returns a dataset of all species whose population has reached 0 and therefore can be reintroduced.
             </summary>
             <param name="version">The specific version of the species to get.</param>
             <param name="filter">The name of the species to filter or "All" for all available creatures.</param>
@@ -642,7 +642,7 @@
         </member>
         <member name="M:Terrarium.Server.Controllers.SpeciesController.GetAllSpecies(System.String,System.String)">
             <summary>
-            Returns a dataset of all species given a specific version and filter criterion.
+                Returns a dataset of all species given a specific version and filter criterion.
             </summary>
             <param name="version">The specific version of the species to get.</param>
             <param name="filter">The name of the species to filter or "All" for all available creatures.</param>
@@ -650,7 +650,7 @@
         </member>
         <member name="M:Terrarium.Server.Controllers.SpeciesController.GetSpeciesAssembly(System.String,System.String)">
             <summary>
-            Gets the assembly as a byte array for the species with a given name and version number.
+                Gets the assembly as a byte array for the species with a given name and version number.
             </summary>
             <param name="name">The name of the species to get</param>
             <param name="version">The version of the species to get</param>
@@ -658,7 +658,7 @@
         </member>
         <member name="M:Terrarium.Server.Controllers.SpeciesController.ReintroduceSpecies(System.String,System.String,System.Guid)">
             <summary>
-            Introduces a previously extinct creature back into the EcoSystem and marks it as not extinct.
+                Introduces a previously extinct creature back into the EcoSystem and marks it as not extinct.
             </summary>
             <param name="name">The name of the species to reintroduce</param>
             <param name="version">The version of the species to reintroduce</param>
@@ -667,19 +667,18 @@
         </member>
         <member name="M:Terrarium.Server.Controllers.SpeciesController.Add(System.String,System.String,System.String,System.String,System.String,System.String,System.Byte[])">
             <summary>
-             This function takes a creature assembly, author information,
-             and a species name and attempts to insert the creature into the EcoSystem.
-             This involves adding the creature to the database and saving the assembly
-             on the server so it can later be used for reintroductions.
-             All strings are checked for inflammatory words and the insertion is not
-             performed if any are found.  In addition the 5 minute rule is checked to
-             make sure the user isn't spamming the server.  Only 1 upload is allowed
-             per 5 minutes.  An additional constraint of only 30 uploads per day is
-             also enforced through the 24 hour rule. 
-             
-             The creature is then inserted into the database.  If the creature already
-             exists the function tells the client the creature is preexisting and the
-             insert fails.  If the insert is successful the creature is then saved to disk on the server.
+                This function takes a creature assembly, author information,
+                and a species name and attempts to insert the creature into the EcoSystem.
+                This involves adding the creature to the database and saving the assembly
+                on the server so it can later be used for reintroductions.
+                All strings are checked for inflammatory words and the insertion is not
+                performed if any are found.  In addition the 5 minute rule is checked to
+                make sure the user isn't spamming the server.  Only 1 upload is allowed
+                per 5 minutes.  An additional constraint of only 30 uploads per day is
+                also enforced through the 24 hour rule.
+                The creature is then inserted into the database.  If the creature already
+                exists the function tells the client the creature is preexisting and the
+                insert fails.  If the insert is successful the creature is then saved to disk on the server.
             </summary>
             <param name="name"></param>
             <param name="version"></param>
@@ -788,6 +787,32 @@
             <param name="period">The period we care about</param>
             <param name="startDate">The startDate, to be filled in by this function</param>
             <param name="endDate">The endDate, to be filled in by this function</param>
+        </member>
+        <member name="T:Terrarium.Server.Resources.Resource">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Terrarium.Server.Resources.Resource.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Terrarium.Server.Resources.Resource.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Terrarium.Server.Resources.Resource.install">
+            <summary>
+              Looks up a localized string similar to &lt;InstallerInfo&gt;
+            &lt;PerformanceCounterCategoryInfos&gt;
+            	&lt;PerformanceCounterCategoryInfo categoryHelp=&quot;Terrarium Discovery Webservices Counters&quot; categoryName=&quot;Terrarium Discovery Webservices&quot;&gt;
+            		&lt;CounterCreationDataInfos&gt;
+            			&lt;CounterCreationDataInfo id=&quot;AllDiscovery&quot; counterHelp=&quot;Counts activity in all discovery webservice methods.&quot; counterName=&quot;All Discovery Calls/Sec&quot; instanceName=&quot;_Total&quot; counterType=&quot;RateOfCountsPerSecond32&quot; /&gt;
+            			&lt;CounterCreationDataInfo id=&quot;AllDiscoveryErrors&quot; counterHelp=&quot;Counts  [rest of string was truncated]&quot;;.
+            </summary>
         </member>
     </members>
 </doc>

@@ -20,6 +20,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>App_Data/XmlDocument.xml</DocumentationFile>
+    <LangVersion>6</LangVersion>
+    <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -65,6 +69,7 @@
       <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.Entity" />
@@ -192,6 +197,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Installer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Helpers\ServerSettings.cs" />
+    <Compile Include="Helpers\TerrariumAssemblyLoader.cs" />
+    <Compile Include="Helpers\Throttle.cs" />
+    <Compile Include="Helpers\WordFilter.cs" />
     <Compile Include="Infrastructure\RequestHelpers.cs" />
     <Compile Include="Migrations\201406200054348_InitialCreate.cs" />
     <Compile Include="Migrations\201406200054348_InitialCreate.Designer.cs">
@@ -209,7 +221,6 @@
     <Compile Include="Models\PeerVersionResult.cs" />
     <Compile Include="Models\RegisterPeerResult.cs" />
     <Compile Include="Models\PeerRegisterResult.cs" />
-    <Compile Include="Models\ServerSettings.cs" />
     <Compile Include="Models\ShutdownPeer.cs" />
     <Compile Include="Models\Species.cs" />
     <Compile Include="Models\RandomTip.cs" />
@@ -226,6 +237,11 @@
     <Compile Include="Repositories\IUsageRepository.cs" />
     <Compile Include="Repositories\TipRepository.cs" />
     <Compile Include="Repositories\UsageRepository.cs" />
+    <Compile Include="Resources\Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\RandomTipViewModel.cs" />
     <Compile Include="ViewModels\UsageViewModel.cs" />
   </ItemGroup>
@@ -274,6 +290,7 @@
     <Content Include="Images\border_right.png" />
     <Content Include="Images\github.png" />
     <Content Include="Images\nuget.png" />
+    <Content Include="Resources\install.xml" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
@@ -317,6 +334,10 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201406200054348_InitialCreate.resx">
       <DependentUpon>201406200054348_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
