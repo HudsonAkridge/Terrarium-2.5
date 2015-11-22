@@ -541,42 +541,42 @@
         </member>
         <member name="T:Terrarium.Server.Controllers.PeerDiscoveryController">
             <summary>
-            The Peer Discovery Service is the central location where
-            peers can announce their existence and get information about other
-            peers.  The primary services here are registering a user's email address,
-            getting peer counts and lists, and registering a peer.
+                The Peer Discovery Service is the central location where
+                peers can announce their existence and get information about other
+                peers.  The primary services here are registering a user's email address,
+                getting peer counts and lists, and registering a peer.
             </summary>
         </member>
-        <member name="F:Terrarium.Server.Controllers.PeerDiscoveryController.discoveryAllPerformanceCounter">
+        <member name="F:Terrarium.Server.Controllers.PeerDiscoveryController.DiscoveryAllPerformanceCounter">
             <summary>
-            PerformanceCounter for all monitored performance parameters on the Discovery Web Service.
+                PerformanceCounter for all monitored performance parameters on the Discovery Web Service.
             </summary>
         </member>
-        <member name="F:Terrarium.Server.Controllers.PeerDiscoveryController.discoveryAllFailuresPerformanceCounter">
+        <member name="F:Terrarium.Server.Controllers.PeerDiscoveryController.DiscoveryAllFailuresPerformanceCounter">
             <summary>
-            PerformanceCounter for all monitored unsuccessful with the Discovery Web Service.
+                PerformanceCounter for all monitored unsuccessful with the Discovery Web Service.
             </summary>
         </member>
-        <member name="F:Terrarium.Server.Controllers.PeerDiscoveryController.discoveryRegistrationPerformanceCounter">
+        <member name="F:Terrarium.Server.Controllers.PeerDiscoveryController.DiscoveryRegistrationPerformanceCounter">
             <summary>
-            PerformanceCounter for monitoring peer registrations with the Discovery Web Service.
+                PerformanceCounter for monitoring peer registrations with the Discovery Web Service.
             </summary>
         </member>
-        <member name="F:Terrarium.Server.Controllers.PeerDiscoveryController.discoveryRegistrationFailuresPerformanceCounter">
+        <member name="F:Terrarium.Server.Controllers.PeerDiscoveryController.DiscoveryRegistrationFailuresPerformanceCounter">
             <summary>
-            PerformanceCounter for monitoring failed peer registration attempts with the Discovery Web Service.
+                PerformanceCounter for monitoring failed peer registration attempts with the Discovery Web Service.
             </summary>
         </member>
         <member name="M:Terrarium.Server.Controllers.PeerDiscoveryController.RegisterUser(System.String)">
             <summary>
-            Registers a Terrarium client user into the server database.
+                Registers a Terrarium client user into the server database.
             </summary>
             <param name="email">E-mail address of the Terrarium user</param>
             <returns>Boolean indicating success or failure of the user registration.</returns>
         </member>
         <member name="M:Terrarium.Server.Controllers.PeerDiscoveryController.GetNumPeers(System.String,System.String)">
             <summary>
-            Obtains the number of peers currently connected to the Terrarium Server.
+                Obtains the number of peers currently connected to the Terrarium Server.
             </summary>
             <param name="version">String specifying the version number.</param>
             <param name="channel">String specifying the channel number.</param>
@@ -584,27 +584,29 @@
         </member>
         <member name="M:Terrarium.Server.Controllers.PeerDiscoveryController.ValidatePeer">
             <summary>
-            Validates a peer connection.
+                Validates a peer connection.
             </summary>
             <returns>A string representing the "REMOTE_ADDR" attribute from the Web Application ServerVariables collection.</returns>
         </member>
         <member name="M:Terrarium.Server.Controllers.PeerDiscoveryController.IsVersionDisabled(System.String,System.String@)">
             <summary>
-            Checks to see if a specific version is disabled or not.  Used by the client at start up.
-            This allows an admin to totally shutdown a version.
+                Checks to see if a specific version is disabled or not.  Used by the client at start up.
+                This allows an admin to totally shutdown a version.
             </summary>
             <param name="version">String specifying the version number.</param>
             <param name="errorMessage"></param>
             <returns>A PeerVersionResult object containing the results of the query</returns>
         </member>
-        <member name="M:Terrarium.Server.Controllers.PeerDiscoveryController.RegisterMyPeerGetCountAndPeerList(System.String,System.String,System.Guid)">
+        <member name="M:Terrarium.Server.Controllers.PeerDiscoveryController.RegisterMyPeerGetCountAndPeerList(System.String,System.String,System.Guid,System.Data.DataSet@,System.Int32@)">
             <summary>
             Registers a peer connection with the Terrarium Server.
             </summary>
             <param name="version">String specifying the version number.</param>
             <param name="channel">String specifying the channel number.</param>
             <param name="guid">Guid (Globally Unique Identifier) for the peer connection.</param>
-            <returns>A PeerRegisterResult object containing the registration result</returns>
+            <param name="peers">Dataset containing a list of peers.</param>
+            <param name="count">Integer specifying the number of peers listed.</param>
+            <returns>A possible value from the RegisterPeerResult enumeration.</returns>
         </member>
         <member name="T:Terrarium.Server.Controllers.ReportsController">
             <summary>
