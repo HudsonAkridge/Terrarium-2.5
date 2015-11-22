@@ -1,0 +1,4 @@
+- Change result type of controller actions to be ActionResult, specifically the JsonResult format for data if possible
+- Remove all the calls to the HttpContext.Current setting session variables and shift into either client side and passing in as parameters, or some other method of storage
+- Move away from the XML format and move towards JSON format for the data
+- Move the SQL statements out of the web layer FFS...

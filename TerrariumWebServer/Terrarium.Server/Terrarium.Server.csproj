@@ -242,6 +242,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\VersionChecker.cs" />
     <Compile Include="ViewModels\RandomTipViewModel.cs" />
     <Compile Include="ViewModels\UsageViewModel.cs" />
   </ItemGroup>

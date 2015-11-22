@@ -1,11 +1,15 @@
 ﻿using System;
+using System.Data;
+using System.Data.SqlClient;
 using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using Terrarium.Server.DataModels;
+using Terrarium.Server.Helpers;
 using Terrarium.Server.Infrastructure;
 using Terrarium.Server.Models;
+using Terrarium.Server.Services;
 
 namespace Terrarium.Server.Controllers
 {
@@ -92,12 +96,12 @@ namespace Terrarium.Server.Controllers
         /// This allows an admin to totally shutdown a version.
         /// </summary>
         /// <param name="version">String specifying the version number.</param>
+        /// <param name="errorMessage"></param>
         /// <returns>A PeerVersionResult object containing the results of the query</returns>
         [HttpGet]
-        public HttpResponseMessage IsVersionDisabled(string version)
+        public bool IsVersionDisabled(string version, out string errorMessage)
         {
-            var result = new PeerVersionResult {Result = false, ErrorMessage = string.Empty};
-            return Request.CreateResponse(HttpStatusCode.OK, result);
+            return VersionChecker.IsVersionDisabled(version, out errorMessage);
         }
 
         /// <summary>

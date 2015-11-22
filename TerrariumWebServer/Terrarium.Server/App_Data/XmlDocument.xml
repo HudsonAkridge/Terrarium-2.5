@@ -568,12 +568,13 @@
             </summary>
             <returns>A string representing the "REMOTE_ADDR" attribute from the Web Application ServerVariables collection.</returns>
         </member>
-        <member name="M:Terrarium.Server.Controllers.PeerDiscoveryController.IsVersionDisabled(System.String)">
+        <member name="M:Terrarium.Server.Controllers.PeerDiscoveryController.IsVersionDisabled(System.String,System.String@)">
             <summary>
             Checks to see if a specific version is disabled or not.  Used by the client at start up.
             This allows an admin to totally shutdown a version.
             </summary>
             <param name="version">String specifying the version number.</param>
+            <param name="errorMessage"></param>
             <returns>A PeerVersionResult object containing the results of the query</returns>
         </member>
         <member name="M:Terrarium.Server.Controllers.PeerDiscoveryController.RegisterMyPeerGetCountAndPeerList(System.String,System.String,System.Guid)">

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -6,6 +7,7 @@ using System.Web;
 using System.Web.Http;
 using Terrarium.Sdk.Enumerations;
 using Terrarium.Server.Helpers;
+using Terrarium.Server.Services;
 
 namespace Terrarium.Server.Controllers
 {
@@ -23,6 +25,33 @@ namespace Terrarium.Server.Controllers
         [Route("api/species/blacklisted")]
         public IEnumerable<string> GetBlacklistedSpecies()
         {
+            try
+            {
+                using (var myConnection = new SqlConnection(ServerSettings.SpeciesDsn))
+                {
+                    myConnection.Open();
+                    var transaction = myConnection.BeginTransaction();
+
+                    var mySqlCommand = new SqlCommand("Select AssemblyFullName From Species Where BlackListed = 1",
+                        myConnection, transaction);
+                    var dr = mySqlCommand.ExecuteReader();
+
+                    //TODO: hakridge use a different format other than ArrayList
+                    var blackListedSpecies = new ArrayList();
+                    while (dr.Read())
+                    {
+                        blackListedSpecies.Add(dr["AssemblyFullName"]);
+                    }
+
+                    if (blackListedSpecies.Count > 0) { return (string[])blackListedSpecies.ToArray(typeof(string)); }
+                }
+            }
+            catch (Exception e)
+            {
+                InstallerInfo.WriteEventLog("GetBlacklistedSpecies", e.ToString());
+                return null;
+            }
+
             return null;
         }
 
@@ -36,7 +65,50 @@ namespace Terrarium.Server.Controllers
         [Route("api/species/extinct")]
         public object GetExtinctSpecies(string version, string filter)
         {
-            return null;
+            if (version == null)
+            {
+                // Special versioning case, if all parameters are not specified then we return an appropriate error.
+                InstallerInfo.WriteEventLog("GetExtinctSpecies",
+                    "Suspect: " + HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"]);
+                return null;
+            }
+
+            if (filter == null) { filter = string.Empty; }
+
+            version = new Version(version).ToString(3);
+
+            try
+            {
+                using (var myConnection = new SqlConnection(ServerSettings.SpeciesDsn))
+                {
+                    myConnection.Open();
+
+                    SqlCommand mySqlCommand;
+                    switch (filter)
+                    {
+                        case "All":
+                            mySqlCommand = new SqlCommand("TerrariumGrabExtinctSpecies", myConnection);
+                            break;
+                        default:
+                            mySqlCommand = new SqlCommand("TerrariumGrabExtinctRecentSpecies", myConnection);
+                            break;
+                    }
+                    var adapter = new SqlDataAdapter(mySqlCommand);
+                    mySqlCommand.CommandType = CommandType.StoredProcedure;
+
+                    var parmName = mySqlCommand.Parameters.Add("@Version", SqlDbType.VarChar, 255);
+                    parmName.Value = version;
+
+                    var data = new DataSet();
+                    adapter.Fill(data);
+                    return data;
+                }
+            }
+            catch (Exception e)
+            {
+                InstallerInfo.WriteEventLog("GetExtinctSpecies", e.ToString());
+                return null;
+            }
         }
 
         /// <summary>
@@ -49,7 +121,54 @@ namespace Terrarium.Server.Controllers
         [Route("api/species")]
         public object GetAllSpecies(string version, string filter)
         {
-            return null;
+            if (version == null)
+            {
+                // Special versioning case, if all parameters are not specified then we return an appropriate error.
+                InstallerInfo.WriteEventLog("GetAllSpecies",
+                    "Suspect: " + HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"]);
+                return null;
+            }
+
+            // Let's verify that this version is even allowed.
+            string errorMessage;
+            if (VersionChecker.IsVersionDisabled(version, out errorMessage)) { return null; }
+
+            if (filter == null) { filter = string.Empty; }
+
+            version = new Version(version).ToString(3);
+
+            try
+            {
+                using (var myConnection = new SqlConnection(ServerSettings.SpeciesDsn))
+                {
+                    myConnection.Open();
+
+                    SqlCommand mySqlCommand;
+                    switch (filter)
+                    {
+                        case "All":
+                            mySqlCommand = new SqlCommand("TerrariumGrabAllSpecies", myConnection);
+                            break;
+                        default:
+                            mySqlCommand = new SqlCommand("TerrariumGrabAllRecentSpecies", myConnection);
+                            break;
+                    }
+                    var adapter = new SqlDataAdapter(mySqlCommand);
+                    mySqlCommand.CommandType = CommandType.StoredProcedure;
+
+                    var parmVersion = mySqlCommand.Parameters.Add("@Version", SqlDbType.VarChar, 255);
+                    parmVersion.Value = version;
+
+                    var data = new DataSet();
+                    adapter.Fill(data);
+                    return data;
+                }
+            }
+            catch (Exception e)
+            {
+                InstallerInfo.WriteEventLog("GetAllSpecies", e.ToString());
+                return null;
+            }
         }
 
         /// <summary>
@@ -62,7 +181,26 @@ namespace Terrarium.Server.Controllers
         [Route("api/species/{name}/assembly")]
         public byte[] GetSpeciesAssembly(string name, string version)
         {
-            return null;
+            if (name == null || version == null)
+            {
+                // Special versioning case, if all parameters are not specified then we return an appropriate error.
+                InstallerInfo.WriteEventLog("GetSpeciesAssembly",
+                    "Suspect: " + HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"]);
+                return null;
+            }
+
+            version = new Version(version).ToString(3);
+
+            try
+            {
+                var species = TerrariumAssemblyLoader.LoadAssembly(version, name + ".dll");
+                return species;
+            }
+            catch (Exception e)
+            {
+                InstallerInfo.WriteEventLog("GetSpeciesAssembly", e.ToString());
+                return null;
+            }
         }
 
         /// <summary>
@@ -75,7 +213,62 @@ namespace Terrarium.Server.Controllers
         [HttpGet]
         public byte[] ReintroduceSpecies(string name, string version, Guid peerGuid)
         {
-            return null;
+            if (name == null || version == null || peerGuid == Guid.Empty)
+            {
+                // Special versioning case, if all parameters are not specified then we return an appropriate error.
+                InstallerInfo.WriteEventLog("ReintroduceSpecies",
+                    "Suspect: " + HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"]);
+                return null;
+            }
+
+            version = new Version(version).ToString(3);
+
+            try
+            {
+                using (var myConnection = new SqlConnection(ServerSettings.SpeciesDsn))
+                {
+                    myConnection.Open();
+                    var transaction = myConnection.BeginTransaction();
+
+                    var mySqlCommand = new SqlCommand("TerrariumCheckSpeciesExtinct", myConnection, transaction)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+
+                    var parmName = mySqlCommand.Parameters.Add("@Name", SqlDbType.VarChar, 255);
+                    parmName.Value = name;
+
+                    var returnValue = mySqlCommand.ExecuteScalar();
+                    if (Convert.IsDBNull(returnValue) || ((int)returnValue) == 0)
+                    {
+                        // the species has already been reintroduced
+                        transaction.Rollback();
+                        return null;
+                    }
+                    mySqlCommand = new SqlCommand("TerrariumReintroduceSpecies", myConnection, transaction)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+
+                    var parmNode = mySqlCommand.Parameters.Add("@ReintroductionNode", SqlDbType.UniqueIdentifier, 16);
+                    parmNode.Value = peerGuid;
+                    var parmDateTime = mySqlCommand.Parameters.Add("@LastReintroduction", SqlDbType.DateTime, 8);
+                    parmDateTime.Value = DateTime.UtcNow;
+                    parmName = mySqlCommand.Parameters.Add("@Name", SqlDbType.VarChar, 255);
+                    parmName.Value = name;
+
+                    mySqlCommand.ExecuteNonQuery();
+
+                    var species = TerrariumAssemblyLoader.LoadAssembly(version, name + ".dll");
+                    transaction.Commit();
+                    return species;
+                }
+            }
+            catch (Exception e)
+            {
+                InstallerInfo.WriteEventLog("ReintroduceSpecies", "Species Name: " + name + "\r\n" + e);
+                return null;
+            }
         }
 
         /// <summary>
@@ -136,7 +329,9 @@ namespace Terrarium.Server.Controllers
                 if (!allow) { return SpeciesServiceStatus.TwentyFourHourThrottle; }
             }
             else
-            { return SpeciesServiceStatus.FiveMinuteThrottle; }
+            {
+                return SpeciesServiceStatus.FiveMinuteThrottle;
+            }
 
             try
             {
@@ -172,7 +367,10 @@ namespace Terrarium.Server.Controllers
                     var parmBlackListed = mySqlCommand.Parameters.Add("@BlackListed", SqlDbType.Bit, 1);
                     parmBlackListed.Value = inappropriate;
 
-                    try { mySqlCommand.ExecuteNonQuery(); }
+                    try
+                    {
+                        mySqlCommand.ExecuteNonQuery();
+                    }
                     catch (SqlException e)
                     {
                         // 2627 is Primary key violation
