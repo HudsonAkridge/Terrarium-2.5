@@ -15,7 +15,7 @@ namespace Terrarium.Server.Controllers
     ///     Encapsulates the functions required to insert new creatures into the
     ///     ecosystem and get creatures from the server during a reintroduction.
     /// </summary>
-    public class SpeciesController : ApiController
+    public class SpeciesController : TerrariumApiControllerBase
     {
         /// <summary>
         ///     Gets a list of all species that have been blacklisted.
@@ -68,8 +68,7 @@ namespace Terrarium.Server.Controllers
             if (version == null)
             {
                 // Special versioning case, if all parameters are not specified then we return an appropriate error.
-                InstallerInfo.WriteEventLog("GetExtinctSpecies",
-                    "Suspect: " + HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"]);
+                InstallerInfo.WriteEventLog("GetExtinctSpecies", "Suspect: " + GetCurrentRequestIpAddress());
                 return null;
             }
 
@@ -124,8 +123,7 @@ namespace Terrarium.Server.Controllers
             if (version == null)
             {
                 // Special versioning case, if all parameters are not specified then we return an appropriate error.
-                InstallerInfo.WriteEventLog("GetAllSpecies",
-                    "Suspect: " + HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"]);
+                InstallerInfo.WriteEventLog("GetAllSpecies", "Suspect: " + GetCurrentRequestIpAddress());
                 return null;
             }
 
@@ -184,8 +182,7 @@ namespace Terrarium.Server.Controllers
             if (name == null || version == null)
             {
                 // Special versioning case, if all parameters are not specified then we return an appropriate error.
-                InstallerInfo.WriteEventLog("GetSpeciesAssembly",
-                    "Suspect: " + HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"]);
+                InstallerInfo.WriteEventLog("GetSpeciesAssembly", "Suspect: " + GetCurrentRequestIpAddress());
                 return null;
             }
 
@@ -216,8 +213,7 @@ namespace Terrarium.Server.Controllers
             if (name == null || version == null || peerGuid == Guid.Empty)
             {
                 // Special versioning case, if all parameters are not specified then we return an appropriate error.
-                InstallerInfo.WriteEventLog("ReintroduceSpecies",
-                    "Suspect: " + HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"]);
+                InstallerInfo.WriteEventLog("ReintroduceSpecies", "Suspect: " + GetCurrentRequestIpAddress());
                 return null;
             }
 
@@ -301,8 +297,7 @@ namespace Terrarium.Server.Controllers
                 assemblyFullName == null || assemblyCode == null)
             {
                 // Special versioning case, if all parameters are not specified then we return an appropriate error.
-                InstallerInfo.WriteEventLog("AddSpecies",
-                    "Suspect: " + HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"]);
+                InstallerInfo.WriteEventLog("AddSpecies", "Suspect: " + GetCurrentRequestIpAddress());
                 return SpeciesServiceStatus.VersionIncompatible;
             }
 
@@ -315,7 +310,7 @@ namespace Terrarium.Server.Controllers
             var insertComplete = false;
 
             var allow = !Throttle.Throttled(
-                HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"],
+                GetCurrentRequestIpAddress(),
                 "AddSpecies5MinuteThrottle"
                 );
 
@@ -323,7 +318,7 @@ namespace Terrarium.Server.Controllers
             if (allow)
             {
                 allow = !Throttle.Throttled(
-                    HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"],
+                    GetCurrentRequestIpAddress(),
                     "AddSpecies24HourThrottle"
                     );
                 if (!allow) { return SpeciesServiceStatus.TwentyFourHourThrottle; }
@@ -381,7 +376,7 @@ namespace Terrarium.Server.Controllers
                     var introductionWait = ServerSettings.IntroductionWait;
 
                     Throttle.AddThrottle(
-                        HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"],
+                        GetCurrentRequestIpAddress(),
                         "AddSpecies5MinuteThrottle",
                         1,
                         DateTime.Now.AddMinutes(introductionWait)
@@ -390,7 +385,7 @@ namespace Terrarium.Server.Controllers
                     var introductionDailyLimit = ServerSettings.IntroductionDailyLimit;
 
                     Throttle.AddThrottle(
-                        HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"],
+                        GetCurrentRequestIpAddress(),
                         "AddSpecies24HourThrottle",
                         introductionDailyLimit,
                         DateTime.Now.AddHours(24)

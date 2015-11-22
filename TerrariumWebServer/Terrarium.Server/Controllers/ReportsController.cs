@@ -11,7 +11,7 @@ namespace Terrarium.Server.Controllers
     /// These data points are used used when creating graphs of the server activity, 
     /// species populations, etc.
     /// </summary>
-    public class ReportsController : ApiController
+    public class ReportsController : TerrariumApiControllerBase
     {
         /// <summary>
         /// This method takes a dataset from the client along with

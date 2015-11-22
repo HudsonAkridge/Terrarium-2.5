@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Terrarium.Server.DataModels;
-using Terrarium.Server.Infrastructure;
+using Terrarium.Server.Helpers;
 using Terrarium.Server.Models;
 
 namespace Terrarium.Server.Controllers
@@ -11,7 +11,7 @@ namespace Terrarium.Server.Controllers
     /// <summary>
     /// Reports on usage of the system.
     /// </summary>
-    public class UsageController : ApiController
+    public class UsageController : TerrariumApiControllerBase
     {
         private readonly ITerrariumDbContext _context;
 

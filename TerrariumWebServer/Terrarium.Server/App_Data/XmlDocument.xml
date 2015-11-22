@@ -547,6 +547,26 @@
             getting peer counts and lists, and registering a peer.
             </summary>
         </member>
+        <member name="F:Terrarium.Server.Controllers.PeerDiscoveryController.discoveryAllPerformanceCounter">
+            <summary>
+            PerformanceCounter for all monitored performance parameters on the Discovery Web Service.
+            </summary>
+        </member>
+        <member name="F:Terrarium.Server.Controllers.PeerDiscoveryController.discoveryAllFailuresPerformanceCounter">
+            <summary>
+            PerformanceCounter for all monitored unsuccessful with the Discovery Web Service.
+            </summary>
+        </member>
+        <member name="F:Terrarium.Server.Controllers.PeerDiscoveryController.discoveryRegistrationPerformanceCounter">
+            <summary>
+            PerformanceCounter for monitoring peer registrations with the Discovery Web Service.
+            </summary>
+        </member>
+        <member name="F:Terrarium.Server.Controllers.PeerDiscoveryController.discoveryRegistrationFailuresPerformanceCounter">
+            <summary>
+            PerformanceCounter for monitoring failed peer registration attempts with the Discovery Web Service.
+            </summary>
+        </member>
         <member name="M:Terrarium.Server.Controllers.PeerDiscoveryController.RegisterUser(System.String)">
             <summary>
             Registers a Terrarium client user into the server database.
@@ -729,35 +749,29 @@
             </summary>
             <param name="data">Watson data object containing error information from the client application.</param>
         </member>
-        <member name="T:Terrarium.Server.Infrastructure.RequestHelpers">
+        <member name="T:Terrarium.Server.Helpers.RequestHelpers">
             <summary>
             Helper class to handle HttpRequests
             </summary>
         </member>
-        <member name="M:Terrarium.Server.Infrastructure.RequestHelpers.GetClientIpAddress(System.Net.Http.HttpRequestMessage)">
+        <member name="M:Terrarium.Server.Helpers.RequestHelpers.GetClientIpAddress(System.Net.Http.HttpRequestMessage)">
             <summary>
             Returns the clients IP address. Usable from ApiControllers.
             </summary>
             <param name="request"></param>
             <returns>The IP address from the client machine.</returns>
         </member>
-        <member name="T:Terrarium.Server.Models.OrganismType">
-            <summary>
-            Used to filter organisms by type when returning
-            top organism information.
-            </summary>
-        </member>
-        <member name="P:Terrarium.Server.Models.PeerVersionResult.Result">
+        <member name="P:Terrarium.Server.Models.Peers.PeerVersionResult.Result">
             <summary>
             True if the version is enabled, false otherwise
             </summary>
         </member>
-        <member name="P:Terrarium.Server.Models.PeerVersionResult.ErrorMessage">
+        <member name="P:Terrarium.Server.Models.Peers.PeerVersionResult.ErrorMessage">
             <summary>
             This is an admin message that the client will display if the version is disabled
             </summary>
         </member>
-        <member name="T:Terrarium.Server.Models.RegisterPeerResult">
+        <member name="T:Terrarium.Server.Models.Peers.RegisterPeerResult">
             <summary>
             This enum contains the values for different
             response codes when a client calls RegisterMyPeerGetCountAndPeerList.
@@ -766,19 +780,25 @@
             have disabled that version of the client and wish the user to upgrade.
             </summary>
         </member>
-        <member name="F:Terrarium.Server.Models.RegisterPeerResult.Success">
+        <member name="F:Terrarium.Server.Models.Peers.RegisterPeerResult.Success">
             <summary>
             Indicates successful registration of a peer connection.
             </summary>
         </member>
-        <member name="F:Terrarium.Server.Models.RegisterPeerResult.Failure">
+        <member name="F:Terrarium.Server.Models.Peers.RegisterPeerResult.Failure">
             <summary>
             Indicates an unsuccessful attempt to register a peer connection.
             </summary>
         </member>
-        <member name="F:Terrarium.Server.Models.RegisterPeerResult.GlobalFailure">
+        <member name="F:Terrarium.Server.Models.Peers.RegisterPeerResult.GlobalFailure">
             <summary>
             Indicates an unsuccessful attempt to register a peer connection.
+            </summary>
+        </member>
+        <member name="T:Terrarium.Server.Models.OrganismType">
+            <summary>
+            Used to filter organisms by type when returning
+            top organism information.
             </summary>
         </member>
         <member name="M:Terrarium.Server.Repositories.UsageRepository.GetPeriodDates(Terrarium.Server.Models.UsagePeriod,System.DateTime@,System.DateTime@)">

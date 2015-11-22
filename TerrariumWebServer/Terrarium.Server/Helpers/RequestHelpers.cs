@@ -2,7 +2,7 @@
 using System.Net.Http;
 using System.Web;
 
-namespace Terrarium.Server.Infrastructure
+namespace Terrarium.Server.Helpers
 {
     /// <summary>
     /// Helper class to handle HttpRequests
@@ -21,6 +21,16 @@ namespace Terrarium.Server.Infrastructure
                 return ((HttpContextBase)request.Properties["MS_HttpContext"]).Request.UserHostAddress;
             }
             throw new Exception("Client IP Address Not Found in HttpRequest");
-        } 
+        }
+
+        public static string GetClientIpAddress(HttpContext context)
+        {
+            return context.Request.UserHostAddress;
+        }
+
+        public static string GetClientIpAddress(HttpRequest request)
+        {
+            return request.UserHostAddress;
+        }
     }
 }

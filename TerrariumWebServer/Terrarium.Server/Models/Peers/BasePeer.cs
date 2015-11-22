@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Terrarium.Server.Models
+namespace Terrarium.Server.Models.Peers
 {
     public class BasePeer
     {

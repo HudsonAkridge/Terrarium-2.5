@@ -12,7 +12,7 @@ namespace Terrarium.Server.Controllers
     /// returning all the data required to produce a remote interface to
     /// graph generation and the information required to generate top-n reports.
     /// </summary>
-    public class ChartController : ApiController
+    public class ChartController : TerrariumApiControllerBase
     {
         /// <summary>
         /// Returns a graph of ALL species along with their latest

@@ -8,7 +8,7 @@ namespace Terrarium.Server.Controllers
     /// <summary>
     ///     Returns various informational messages from the server
     /// </summary>
-    public class MessageController : ApiController
+    public class MessageController : TerrariumApiControllerBase
     {
         /// <summary>
         ///     Gets the welcome message for the server.

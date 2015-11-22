@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Terrarium.Server.DataModels;
-using Terrarium.Server.Infrastructure;
+using Terrarium.Server.Helpers;
 using Terrarium.Server.Models;
 
 namespace Terrarium.Server.Controllers
@@ -11,7 +11,7 @@ namespace Terrarium.Server.Controllers
     /// <summary>
     /// Enables logging of errors from Terrarium clients.
     /// </summary>
-    public class WatsonController : ApiController
+    public class WatsonController : TerrariumApiControllerBase
     {
         private readonly ITerrariumDbContext _context;
 

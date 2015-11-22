@@ -1,4 +1,5 @@
 ﻿using System;
+using Terrarium.Server.Models.Peers;
 
 namespace Terrarium.Server.Models
 {

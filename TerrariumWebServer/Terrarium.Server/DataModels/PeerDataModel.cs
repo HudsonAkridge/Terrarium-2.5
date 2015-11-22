@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 using Terrarium.Server.Models;
+using Terrarium.Server.Models.Peers;
 
 namespace Terrarium.Server.DataModels
 {

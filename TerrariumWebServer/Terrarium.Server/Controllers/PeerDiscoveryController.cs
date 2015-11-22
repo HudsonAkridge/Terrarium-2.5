@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using Terrarium.Server.DataModels;
 using Terrarium.Server.Helpers;
-using Terrarium.Server.Infrastructure;
 using Terrarium.Server.Models;
+using Terrarium.Server.Models.Peers;
 using Terrarium.Server.Services;
 
 namespace Terrarium.Server.Controllers
@@ -19,8 +20,25 @@ namespace Terrarium.Server.Controllers
     /// peers.  The primary services here are registering a user's email address,
     /// getting peer counts and lists, and registering a peer.
     /// </summary>
-    public class PeerDiscoveryController : ApiController
+    public class PeerDiscoveryController : TerrariumApiControllerBase
     {
+        /// <summary>
+        /// PerformanceCounter for all monitored performance parameters on the Discovery Web Service.
+        /// </summary>
+        private static PerformanceCounter discoveryAllPerformanceCounter = InstallerInfo.CreatePerformanceCounter("AllDiscovery");
+        /// <summary>
+        /// PerformanceCounter for all monitored unsuccessful with the Discovery Web Service.
+        /// </summary>
+        private static PerformanceCounter discoveryAllFailuresPerformanceCounter = InstallerInfo.CreatePerformanceCounter("AllDiscoveryErrors");
+        /// <summary>
+        /// PerformanceCounter for monitoring peer registrations with the Discovery Web Service.
+        /// </summary>
+        private static PerformanceCounter discoveryRegistrationPerformanceCounter = InstallerInfo.CreatePerformanceCounter("Registration");
+        /// <summary>
+        /// PerformanceCounter for monitoring failed peer registration attempts with the Discovery Web Service.
+        /// </summary>
+        private static PerformanceCounter discoveryRegistrationFailuresPerformanceCounter = InstallerInfo.CreatePerformanceCounter("RegistrationErrors");
+
         private readonly ITerrariumDbContext _context;
 
         public PeerDiscoveryController(ITerrariumDbContext context)
@@ -48,15 +66,20 @@ namespace Terrarium.Server.Controllers
 
             try
             {
-                var ipAddress = RequestHelpers.GetClientIpAddress(Request);
+                var ipAddress = GetCurrentRequestIpAddress();
                 _context.AddUser(new UserRegister
                 {
                     Email = email, 
                     IPAddress = ipAddress
                 });
+                discoveryAllPerformanceCounter?.Increment();
             }
             catch (Exception e)
             {
+                InstallerInfo.WriteEventLog("RegisterUser", e.ToString());
+
+                discoveryAllFailuresPerformanceCounter?.Increment();
+
                 throw new HttpResponseException(new HttpResponseMessage
                 {
                     StatusCode = HttpStatusCode.InternalServerError,

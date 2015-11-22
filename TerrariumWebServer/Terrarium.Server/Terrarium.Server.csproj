@@ -176,6 +176,7 @@
     <Compile Include="Controllers\PeerDiscoveryController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\SpeciesController.cs" />
+    <Compile Include="Controllers\TerrariumApiControllerBase.cs" />
     <Compile Include="Controllers\UsageController.cs" />
     <Compile Include="Controllers\WatsonController.cs" />
     <Compile Include="DataModels\DailyPopulationDataModel.cs" />
@@ -204,23 +205,23 @@
     <Compile Include="Helpers\TerrariumAssemblyLoader.cs" />
     <Compile Include="Helpers\Throttle.cs" />
     <Compile Include="Helpers\WordFilter.cs" />
-    <Compile Include="Infrastructure\RequestHelpers.cs" />
+    <Compile Include="Helpers\RequestHelpers.cs" />
     <Compile Include="Migrations\201406200054348_InitialCreate.cs" />
     <Compile Include="Migrations\201406200054348_InitialCreate.Designer.cs">
       <DependentUpon>201406200054348_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\BasePeer.cs" />
+    <Compile Include="Models\Peers\BasePeer.cs" />
     <Compile Include="Models\Bug.cs" />
     <Compile Include="Models\DailyPopulation.cs" />
     <Compile Include="Models\Download.cs" />
     <Compile Include="Models\History.cs" />
     <Compile Include="Models\NodeLastContact.cs" />
     <Compile Include="Models\OrganismType.cs" />
-    <Compile Include="Models\Peer.cs" />
-    <Compile Include="Models\PeerVersionResult.cs" />
-    <Compile Include="Models\RegisterPeerResult.cs" />
-    <Compile Include="Models\PeerRegisterResult.cs" />
+    <Compile Include="Models\Peers\Peer.cs" />
+    <Compile Include="Models\Peers\PeerVersionResult.cs" />
+    <Compile Include="Models\Peers\RegisterPeerResult.cs" />
+    <Compile Include="Models\Peers\PeerRegisterResult.cs" />
     <Compile Include="Models\ShutdownPeer.cs" />
     <Compile Include="Models\Species.cs" />
     <Compile Include="Models\RandomTip.cs" />

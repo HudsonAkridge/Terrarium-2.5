@@ -1,4 +1,4 @@
-﻿namespace Terrarium.Server.Models
+﻿namespace Terrarium.Server.Models.Peers
 {
     /// <summary>
     /// This enum contains the values for different

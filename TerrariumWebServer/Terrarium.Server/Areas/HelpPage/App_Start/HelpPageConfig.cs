@@ -16,6 +16,7 @@ using System.Web.Http;
 using System.Web.Http.OData;
 #endif
 using Terrarium.Server.Models;
+using Terrarium.Server.Models.Peers;
 
 namespace Terrarium.Server.Areas.HelpPage
 {
