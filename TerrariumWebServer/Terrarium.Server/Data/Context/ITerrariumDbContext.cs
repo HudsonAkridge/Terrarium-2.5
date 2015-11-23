@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Terrarium.Server.Models;
 
-namespace Terrarium.Server.DataModels
+namespace Terrarium.Server.Data.Context
 {
     public interface ITerrariumDbContext
     {

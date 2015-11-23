@@ -2,11 +2,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 using Terrarium.Server.Models;
 
-namespace Terrarium.Server.DataModels
+namespace Terrarium.Server.Data.Mappings
 {
-    public class HistoryDataModel : EntityTypeConfiguration<History>
+    public class HistoryMap : EntityTypeConfiguration<History>
     {
-        public HistoryDataModel()
+        public HistoryMap()
         {
             ToTable("History");
             Property(x => x.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);

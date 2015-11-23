@@ -1,13 +1,11 @@
-using System;
 using System.Web.Http;
 using System.Web.Mvc;
 using Terrarium.Server.Areas.HelpPage.ModelDescriptions;
-using Terrarium.Server.Areas.HelpPage.Models;
 
 namespace Terrarium.Server.Areas.HelpPage.Controllers
 {
     /// <summary>
-    /// The controller that will handle requests for the help page.
+    ///     The controller that will handle requests for the help page.
     /// </summary>
     public class HelpController : Controller
     {
@@ -23,7 +21,7 @@ namespace Terrarium.Server.Areas.HelpPage.Controllers
             Configuration = config;
         }
 
-        public HttpConfiguration Configuration { get; private set; }
+        public HttpConfiguration Configuration { get; }
 
         public ActionResult Index()
         {
@@ -33,31 +31,21 @@ namespace Terrarium.Server.Areas.HelpPage.Controllers
 
         public ActionResult Api(string apiId)
         {
-            if (!String.IsNullOrEmpty(apiId))
-            {
-                HelpPageApiModel apiModel = Configuration.GetHelpPageApiModel(apiId);
-                if (apiModel != null)
-                {
-                    return View(apiModel);
-                }
-            }
-
-            return View(ErrorViewName);
+            if (string.IsNullOrEmpty(apiId)) { return View(ErrorViewName); }
+            var apiModel = Configuration.GetHelpPageApiModel(apiId);
+            return apiModel != null
+                ? View(apiModel)
+                : View(ErrorViewName);
         }
 
         public ActionResult ResourceModel(string modelName)
         {
-            if (!String.IsNullOrEmpty(modelName))
-            {
-                ModelDescriptionGenerator modelDescriptionGenerator = Configuration.GetModelDescriptionGenerator();
-                ModelDescription modelDescription;
-                if (modelDescriptionGenerator.GeneratedModels.TryGetValue(modelName, out modelDescription))
-                {
-                    return View(modelDescription);
-                }
-            }
-
-            return View(ErrorViewName);
+            if (string.IsNullOrEmpty(modelName)) { return View(ErrorViewName); }
+            var modelDescriptionGenerator = Configuration.GetModelDescriptionGenerator();
+            ModelDescription modelDescription;
+            return modelDescriptionGenerator.GeneratedModels.TryGetValue(modelName, out modelDescription)
+                ? View(modelDescription)
+                : View(ErrorViewName);
         }
     }
 }

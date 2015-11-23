@@ -4,7 +4,7 @@ using System.Web.Mvc;
 using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
-using Terrarium.Server.DataModels;
+using Terrarium.Server.Data.Context;
 
 namespace Terrarium.Server
 {

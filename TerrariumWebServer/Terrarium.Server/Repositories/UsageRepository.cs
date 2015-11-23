@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Terrarium.Server.DataModels;
+using Terrarium.Server.Data.Context;
 using Terrarium.Server.Models;
 
 namespace Terrarium.Server.Repositories

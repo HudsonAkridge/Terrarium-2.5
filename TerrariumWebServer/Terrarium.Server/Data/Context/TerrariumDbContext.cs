@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reflection;
 using Terrarium.Server.Models;
 
-namespace Terrarium.Server.DataModels
+namespace Terrarium.Server.Data.Context
 {
     public class TerrariumDbContext : DbContext, ITerrariumDbContext
     {

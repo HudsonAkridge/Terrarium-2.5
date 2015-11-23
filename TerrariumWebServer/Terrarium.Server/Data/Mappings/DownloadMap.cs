@@ -2,11 +2,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 using Terrarium.Server.Models;
 
-namespace Terrarium.Server.DataModels
+namespace Terrarium.Server.Data.Mappings
 {
-    public class DownloadDataModel : EntityTypeConfiguration<Download>
+    public class DownloadMap : EntityTypeConfiguration<Download>
     {
-        public DownloadDataModel()
+        public DownloadMap()
         {
             ToTable("Downloads");
             Property(x => x.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);

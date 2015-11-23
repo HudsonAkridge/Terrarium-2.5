@@ -1,0 +1,11 @@
+_Original_Server: ASP.NET Webforms/ASMX/SOAP based web server for Terrarium. I've ported most of the useful code over into the TerrariumWebServer solution.
+Tools: A list of old winform tools used to create instances of the server, edit styles of the creatures maybe?
+
+	Tools -> StyleEditor
+		Metal: Has things like metal buttons, panels, etc. Maybe this is the look of the terrarium overlay/skin?
+		Controls: I think these are the controls for the overlay it seems
+
+	Tools -> ServerConfig: All the necessary files/sql/etc. needed to set up and configure a terrarium server
+		Setup: SQL Script for installing database and web.config for a default server instance
+		ServerConfig: Wizard for setting up/installing a server instance. Also loks like it had some bootstrappers around getting it working with IIS
+		InstallerItems: Possibly an auto-generated directory. Seems to have some of the strong datatypes necessary to register any issues during installation (like performance counters, event logs, etc.)

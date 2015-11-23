@@ -2,11 +2,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 using Terrarium.Server.Models;
 
-namespace Terrarium.Server.DataModels
+namespace Terrarium.Server.Data.Mappings
 {
-    public class UsageSummaryDataModel : EntityTypeConfiguration<UsageSummary>
+    public class UsageSummaryMap : EntityTypeConfiguration<UsageSummary>
     {
-        public UsageSummaryDataModel()
+        public UsageSummaryMap()
         {
             ToTable("UsageSummary");
             Property(x => x.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);

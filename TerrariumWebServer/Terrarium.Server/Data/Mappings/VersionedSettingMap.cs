@@ -2,11 +2,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 using Terrarium.Server.Models;
 
-namespace Terrarium.Server.DataModels
+namespace Terrarium.Server.Data.Mappings
 {
-    public class VersionedSettingDataModel : EntityTypeConfiguration<VersionedSetting>
+    public class VersionedSettingMap : EntityTypeConfiguration<VersionedSetting>
     {
-        public VersionedSettingDataModel()
+        public VersionedSettingMap()
         {
             ToTable("VersionedSettings");
             Property(x => x.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);

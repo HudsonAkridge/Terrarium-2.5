@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Terrarium.Server.DataModels;
+using Terrarium.Server.Data.Context;
 using Terrarium.Server.Helpers;
 using Terrarium.Server.Models;
 using Terrarium.Server.Models.Peers;

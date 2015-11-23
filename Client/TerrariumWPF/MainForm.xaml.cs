@@ -14,10 +14,10 @@ namespace TerrariumWPF
 
         public MainForm()
         {
-            InitializeComponent();
+            //InitializeComponent();
             _tddGameView = new TerrariumDirectDrawGameView();
             var host = new WindowsFormsHost {Child = _tddGameView};
-            tddGameView.Children.Add(host);
+            //tddGameView.Children.Add(host);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

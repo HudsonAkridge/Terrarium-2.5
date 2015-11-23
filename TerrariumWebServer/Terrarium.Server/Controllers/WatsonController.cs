@@ -2,7 +2,7 @@
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Terrarium.Server.DataModels;
+using Terrarium.Server.Data.Context;
 using Terrarium.Server.Helpers;
 using Terrarium.Server.Models;
 
@@ -49,7 +49,7 @@ namespace Terrarium.Server.Controllers
 
             try
             {
-                data.MachineName = RequestHelpers.GetClientIpAddress(Request);
+                data.MachineName = GetCurrentRequestIpAddress();
                 data.DateSubmitted = DateTime.Now;
                 _context.AddError(data);
             }

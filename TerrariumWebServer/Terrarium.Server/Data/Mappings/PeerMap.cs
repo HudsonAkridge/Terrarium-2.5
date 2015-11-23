@@ -1,13 +1,12 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using Terrarium.Server.Models;
 using Terrarium.Server.Models.Peers;
 
-namespace Terrarium.Server.DataModels
+namespace Terrarium.Server.Data.Mappings
 {
-    public class PeerDataModel : EntityTypeConfiguration<Peer>
+    public class PeerMap : EntityTypeConfiguration<Peer>
     {
-        public PeerDataModel()
+        public PeerMap()
         {
             ToTable("Peers");
             Property(x => x.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);

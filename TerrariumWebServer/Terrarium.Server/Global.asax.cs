@@ -4,7 +4,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Terrarium.Server.DataModels;
+using Terrarium.Server.Data.Context;
 using Terrarium.Server.Migrations;
 
 namespace Terrarium.Server

@@ -2,11 +2,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 using Terrarium.Server.Models;
 
-namespace Terrarium.Server.DataModels
+namespace Terrarium.Server.Data.Mappings
 {
-    public class SpeciesDataModel : EntityTypeConfiguration<Species>
+    public class SpeciesMap : EntityTypeConfiguration<Species>
     {
-        public SpeciesDataModel()
+        public SpeciesMap()
         {
             ToTable("Species");
             Property(x => x.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);

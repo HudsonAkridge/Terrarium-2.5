@@ -2,7 +2,7 @@
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Terrarium.Server.DataModels;
+using Terrarium.Server.Data.Context;
 using Terrarium.Server.Helpers;
 using Terrarium.Server.Models;
 
@@ -46,7 +46,7 @@ namespace Terrarium.Server.Controllers
 
             try
             {
-                data.IPAddress = RequestHelpers.GetClientIpAddress(Request);
+                data.IPAddress = GetCurrentRequestIpAddress();
                 _context.AddUsage(data);
             }
             catch (Exception e)

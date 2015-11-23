@@ -2,11 +2,11 @@
 using System.Data.Entity.ModelConfiguration;
 using Terrarium.Server.Models;
 
-namespace Terrarium.Server.DataModels
+namespace Terrarium.Server.Data.Mappings
 {
-    public class UsageDataModel : EntityTypeConfiguration<Usage>
+    public class UsageMap : EntityTypeConfiguration<Usage>
     {
-        public UsageDataModel()
+        public UsageMap()
         {
             ToTable("Usage");
             Property(x => x.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);

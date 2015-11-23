@@ -2,11 +2,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 using Terrarium.Server.Models;
 
-namespace Terrarium.Server.DataModels
+namespace Terrarium.Server.Data.Mappings
 {
-    public class UserRegisterDataModel : EntityTypeConfiguration<UserRegister>
+    public class UserRegisterMap : EntityTypeConfiguration<UserRegister>
     {
-        public UserRegisterDataModel()
+        public UserRegisterMap()
         {
             ToTable("UserRegister");
             Property(x => x.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);

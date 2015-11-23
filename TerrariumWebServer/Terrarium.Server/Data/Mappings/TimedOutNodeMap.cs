@@ -2,17 +2,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 using Terrarium.Server.Models;
 
-namespace Terrarium.Server.DataModels
+namespace Terrarium.Server.Data.Mappings
 {
-    public class NodeLastContactDataModel : EntityTypeConfiguration<NodeLastContact>
+    public class TimedOutNodeMap : EntityTypeConfiguration<TimedOutNode>
     {
-        public NodeLastContactDataModel()
+        public TimedOutNodeMap()
         {
-            ToTable("NodeLastContact");
+            ToTable("TimedOutNodes");
             Property(x => x.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             Property(x => x.GUID).IsRequired();
-            Property(x => x.LastTick).IsRequired();
-            Property(x => x.LastContact).IsRequired();
+            Property(x => x.TimeoutDate).IsRequired();
         }
     }
 }
